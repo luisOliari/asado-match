@@ -11,12 +11,12 @@ interface SwipeDeckProps {
 const BurntLogsCross = () => (
   <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform rotate-0">
     {/* Log 1 (Diagonal down) */}
-    <path d="M5 5C5 5 8 4 10 6L18 18C19 19 19 20 18 20C17 20 16 19 15 18L7 8C5 6 4 6 5 5Z" fill="#57534e" /> 
-    <path d="M6 6L17 19" stroke="#44403c" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M5 5C5 5 8 4 10 6L18 18C19 19 19 20 18 20C17 20 16 19 15 18L7 8C5 6 4 6 5 5Z" className="fill-stone-600 dark:fill-stone-300" />
+    <path d="M6 6L17 19" className="stroke-stone-700 dark:stroke-stone-400" strokeWidth="1.5" strokeLinecap="round" />
     
     {/* Log 2 (Diagonal up) */}
-    <path d="M19 5C19 5 16 4 14 6L6 18C5 19 5 20 6 20C7 20 8 19 9 18L17 8C19 6 20 6 19 5Z" fill="#57534e" />
-    <path d="M18 6L7 19" stroke="#44403c" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M19 5C19 5 16 4 14 6L6 18C5 19 5 20 6 20C7 20 8 19 9 18L17 8C19 6 20 6 19 5Z" className="fill-stone-600 dark:fill-stone-300" />
+    <path d="M18 6L7 19" className="stroke-stone-700 dark:stroke-stone-400" strokeWidth="1.5" strokeLinecap="round" />
     
     {/* Texture details (cracks) */}
     <path d="M9 8L10 9" stroke="#a8a29e" strokeWidth="1" strokeLinecap="round" />
@@ -101,18 +101,18 @@ export const SwipeDeck: React.FC<SwipeDeckProps> = ({ onMatch }) => {
     { subject: 'Relax', A: currentProfile.vibe.chill, fullMark: 100 },
   ] : [];
 
-  if (!currentProfile) return <div className="flex h-full items-center justify-center text-stone-400 font-medium bg-stone-50">No más grupos cerca.</div>;
+  if (!currentProfile) return <div className="flex h-full items-center justify-center text-stone-400 font-medium bg-stone-50 dark:bg-stone-900">No más grupos cerca.</div>;
 
   return (
     <div className="h-full flex flex-col pt-4 pb-24 px-4 max-w-md mx-auto relative">
       <div className="flex justify-between items-center mb-4 px-2">
-        <h2 className="text-2xl font-bold text-stone-700 tracking-tight">Descubrir</h2>
-        <div className="flex items-center text-stone-500 gap-1.5 bg-white px-3 py-1.5 rounded-full text-xs font-bold border border-stone-200 shadow-sm">
+        <h2 className="text-2xl font-bold text-stone-700 dark:text-stone-100 tracking-tight">Descubrir</h2>
+        <div className="flex items-center text-stone-500 dark:text-stone-300 gap-1.5 bg-white dark:bg-stone-800 px-3 py-1.5 rounded-full text-xs font-bold border border-stone-200 dark:border-stone-700 shadow-sm">
           <MapPin size={14} className="text-rose-400" /> Punta del Diablo
         </div>
       </div>
 
-      <div className={`flex-1 relative bg-white rounded-[2.5rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] overflow-hidden transition-all duration-300 transform border border-stone-100/50 ${lastDirection === 'left' ? '-translate-x-full rotate-[-15deg] opacity-0' : lastDirection === 'right' ? 'translate-x-full rotate-[15deg] opacity-0' : ''}`}>
+      <div className={`flex-1 relative bg-white dark:bg-stone-800 rounded-[2.5rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] dark:shadow-black/40 overflow-hidden transition-all duration-300 transform border border-stone-100/50 dark:border-stone-700/50 ${lastDirection === 'left' ? '-translate-x-full rotate-[-15deg] opacity-0' : lastDirection === 'right' ? 'translate-x-full rotate-[15deg] opacity-0' : ''}`}>
         {/* Image Section */}
         <div className="h-[65%] relative group">
           <img 
@@ -137,12 +137,12 @@ export const SwipeDeck: React.FC<SwipeDeckProps> = ({ onMatch }) => {
         </div>
 
         {/* Stats Section */}
-        <div className="h-[35%] p-2 flex flex-col justify-center items-center bg-white relative">
-          <div className="absolute top-0 w-12 h-1 bg-stone-100 rounded-full mt-3"></div>
-          <div className="w-full h-full max-w-[280px]">
+        <div className="h-[35%] p-2 flex flex-col justify-center items-center bg-white dark:bg-stone-800 relative">
+          <div className="absolute top-0 w-12 h-1 bg-stone-100 dark:bg-stone-700 rounded-full mt-3"></div>
+          <div className="w-full h-full max-w-[280px] text-stone-100 dark:text-stone-700">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="65%" data={chartData}>
-                <PolarGrid stroke="#f5f5f4" />
+                <PolarGrid stroke="currentColor" />
                 <PolarAngleAxis dataKey="subject" tick={{ fill: '#a8a29e', fontSize: 11, fontWeight: 600 }} />
                 <Radar
                   name="Vibe"
@@ -164,7 +164,7 @@ export const SwipeDeck: React.FC<SwipeDeckProps> = ({ onMatch }) => {
         {/* REJECT BUTTON (Burnt Logs) */}
         <button 
           onClick={() => handleSwipe('left')}
-          className="pointer-events-auto bg-white p-5 rounded-full shadow-xl shadow-stone-200/50 hover:bg-stone-50 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 border border-stone-100 flex items-center justify-center group"
+          className="pointer-events-auto bg-white dark:bg-stone-800 p-5 rounded-full shadow-xl shadow-stone-200/50 dark:shadow-black/40 hover:bg-stone-50 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 border border-stone-100 dark:border-stone-700 flex items-center justify-center group"
           aria-label="Reject"
         >
           <div className="opacity-80 group-hover:opacity-100 transition-opacity">

@@ -5,12 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Asado Match - Punta del Diablo</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Modo oscuro activado por la clase "dark" en <html> (ver App.tsx)
+      tailwind.config = { darkMode: 'class' };
+    </script>
+    <script>
+      // Aplica el tema guardado antes del primer render para evitar un parpadeo.
+      // Sin preferencia guardada, sigue el tema del sistema.
+      (function () {
+        var saved = null;
+        try { saved = localStorage.getItem('asado-theme'); } catch (e) {}
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (saved !== 'light' && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
       body {
         font-family: 'Poppins', sans-serif;
         background-color: #fdfbf7;
         color: #44403c;
+      }
+      html.dark { color-scheme: dark; }
+      html.dark body {
+        background-color: #1c1917; /* stone-900 */
+        color: #e7e5e4; /* stone-200 */
       }
       .scrollbar-hide::-webkit-scrollbar { display: none; }
       .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

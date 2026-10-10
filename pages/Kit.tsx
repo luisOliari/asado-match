@@ -17,10 +17,10 @@ const DEFAULT_ITEMS: AsadoItem[] = [
 
 const getCategoryStyles = (category: string): { bg: string; text: string; border: string } => {
     switch (category) {
-        case 'Fuego': return { bg: 'bg-orange-50', text: 'text-orange-600', border: 'border-orange-100' };
-        case 'Carne': return { bg: 'bg-rose-50', text: 'text-rose-600', border: 'border-rose-100' };
-        case 'Bebida': return { bg: 'bg-sky-50', text: 'text-sky-600', border: 'border-sky-100' };
-        default: return { bg: 'bg-stone-100', text: 'text-stone-600', border: 'border-stone-200' };
+        case 'Fuego': return { bg: 'bg-orange-50 dark:bg-orange-900/30', text: 'text-orange-600 dark:text-orange-300', border: 'border-orange-100 dark:border-orange-900/60' };
+        case 'Carne': return { bg: 'bg-rose-50 dark:bg-rose-900/30', text: 'text-rose-600 dark:text-rose-300', border: 'border-rose-100 dark:border-rose-900/60' };
+        case 'Bebida': return { bg: 'bg-sky-50 dark:bg-sky-900/30', text: 'text-sky-600 dark:text-sky-300', border: 'border-sky-100 dark:border-sky-900/60' };
+        default: return { bg: 'bg-stone-100 dark:bg-stone-800', text: 'text-stone-600 dark:text-stone-300', border: 'border-stone-200 dark:border-stone-700' };
     }
 }
 
@@ -32,7 +32,7 @@ export const Kit: React.FC = () => {
   const [loadingGuru, setLoadingGuru] = useState(false);
 
   const toggleItem = (id: string) => {
-    setItems(items.map(item => 
+    setItems(items.map(item =>
       item.id === id ? { ...item, checked: !item.checked } : item
     ));
   };
@@ -51,23 +51,23 @@ export const Kit: React.FC = () => {
   const progress = Math.round((checkedItems / totalItems) * 100);
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] pt-6 px-4 pb-24 max-w-md mx-auto">
+    <div className="min-h-[calc(100vh-3.5rem)] bg-[#FDFBF7] dark:bg-stone-900 pt-6 px-4 pb-24 max-w-md mx-auto">
       <div className="flex justify-between items-end mb-6">
         <div>
-          <h2 className="text-3xl font-bold text-stone-700">Kit Asador</h2>
+          <h2 className="text-3xl font-bold text-stone-700 dark:text-stone-100">Kit Asador</h2>
           <div className="flex items-center gap-3 mt-1.5">
-            <div className="w-32 h-2.5 bg-stone-200 rounded-full overflow-hidden">
+            <div className="w-32 h-2.5 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
               <div className="h-full bg-emerald-400 transition-all duration-500 rounded-full" style={{ width: `${progress}%` }}></div>
             </div>
             <span className="text-xs font-bold text-stone-400">{progress}% Listo</span>
           </div>
         </div>
-        <button 
+        <button
           onClick={() => setGuruOpen(!guruOpen)}
           className={`px-4 py-2 rounded-full flex items-center gap-2 text-xs font-bold shadow-md transition-all hover:-translate-y-0.5 ${
-            guruOpen 
-              ? 'bg-gradient-to-r from-rose-300 to-amber-200 text-stone-700 shadow-rose-200/50' 
-              : 'bg-white text-stone-600 border border-stone-200 hover:border-rose-200'
+            guruOpen
+              ? 'bg-gradient-to-r from-rose-300 to-amber-200 text-stone-700 shadow-rose-200/50'
+              : 'bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-200 border border-stone-200 dark:border-stone-700 hover:border-rose-200 dark:hover:border-rose-800'
           }`}
         >
           <Bot size={18} /> {guruOpen ? 'Cerrar' : 'Gaucho IA'}
@@ -75,32 +75,32 @@ export const Kit: React.FC = () => {
       </div>
 
       {guruOpen && (
-        <div className="bg-white p-5 rounded-[2rem] shadow-xl shadow-stone-200/50 border border-stone-100 mb-8 animate-in slide-in-from-top-4 fade-in">
+        <div className="bg-white dark:bg-stone-800 p-5 rounded-[2rem] shadow-xl shadow-stone-200/50 dark:shadow-black/30 border border-stone-100 dark:border-stone-700 mb-8 animate-in slide-in-from-top-4 fade-in">
           <div className="flex items-center gap-3 mb-4">
-            <div className="bg-orange-100 p-2.5 rounded-2xl text-orange-500">
+            <div className="bg-orange-100 dark:bg-orange-900/40 p-2.5 rounded-2xl text-orange-500 dark:text-orange-300">
                <Flame size={20} />
             </div>
             <div className="flex-1">
-               <h3 className="font-bold text-stone-700 text-sm">El Gaucho IA</h3>
+               <h3 className="font-bold text-stone-700 dark:text-stone-100 text-sm">El Gaucho IA</h3>
                <p className="text-xs text-stone-400">¿Dudas con el fuego?</p>
             </div>
           </div>
-          
+
           {guruResponse ? (
-            <div className="bg-stone-50 p-4 rounded-2xl text-sm text-stone-600 italic border border-stone-100 mb-4 relative">
+            <div className="bg-stone-50 dark:bg-stone-900 p-4 rounded-2xl text-sm text-stone-600 dark:text-stone-200 italic border border-stone-100 dark:border-stone-700 mb-4 relative">
               "{guruResponse}"
-              <button onClick={() => setGuruResponse('')} className="block mt-2 text-xs text-rose-500 font-bold hover:underline">Otra consulta</button>
+              <button onClick={() => setGuruResponse('')} className="block mt-2 text-xs text-rose-500 dark:text-rose-300 font-bold hover:underline">Otra consulta</button>
             </div>
           ) : (
              <div className="flex gap-2 mb-1">
-                <input 
+                <input
                  value={guruQuery}
                  onChange={(e) => setGuruQuery(e.target.value)}
                  onKeyDown={(e) => e.key === 'Enter' && askGuru()}
                  placeholder="Ej: ¿Cómo prendo el fuego rápido?"
-                 className="flex-1 bg-stone-50 text-stone-700 text-sm px-4 py-3 rounded-2xl outline-none focus:ring-2 focus:ring-stone-200 transition-all border border-transparent focus:bg-white"
+                 className="flex-1 bg-stone-50 dark:bg-stone-900 text-stone-700 dark:text-stone-100 text-sm px-4 py-3 rounded-2xl outline-none focus:ring-2 focus:ring-stone-200 dark:focus:ring-stone-600 transition-all border border-transparent dark:border-stone-700 focus:bg-white dark:focus:bg-stone-900"
                 />
-                <button 
+                <button
                  onClick={() => askGuru()}
                  disabled={loadingGuru}
                  className="bg-gradient-to-r from-rose-300 to-amber-200 text-white p-3 rounded-2xl hover:shadow-lg hover:shadow-rose-200/40 hover:-translate-y-0.5 transition-all"
@@ -120,19 +120,19 @@ export const Kit: React.FC = () => {
                     <h3 className={`text-xs font-bold uppercase tracking-widest mb-3 ml-1 ${style.text.replace('600', '400')}`}>{cat}</h3>
                     <div className="grid gap-2.5">
                     {items.filter(i => i.category === cat).map((item) => (
-                        <div 
+                        <div
                         key={item.id}
                         onClick={() => toggleItem(item.id)}
                         className={`p-4 rounded-2xl flex items-center justify-between border cursor-pointer transition-all duration-300 ${
-                            item.checked 
-                            ? 'bg-stone-50 border-transparent opacity-50' 
-                            : `bg-white ${style.border} shadow-sm hover:shadow-md hover:-translate-y-0.5`
+                            item.checked
+                            ? 'bg-stone-50 dark:bg-stone-800/50 border-transparent opacity-50'
+                            : `bg-white dark:bg-stone-800 ${style.border} shadow-sm dark:shadow-black/20 hover:shadow-md hover:-translate-y-0.5`
                         }`}
                         >
-                        <span className={`font-medium text-sm ${item.checked ? 'line-through text-stone-400' : 'text-stone-600'}`}>{item.name}</span>
-                        {item.checked 
-                            ? <CheckCircle2 className="text-emerald-400" size={22} /> 
-                            : <Circle className={`text-stone-200 group-hover:${style.text}`} size={22} />
+                        <span className={`font-medium text-sm ${item.checked ? 'line-through text-stone-400' : 'text-stone-600 dark:text-stone-200'}`}>{item.name}</span>
+                        {item.checked
+                            ? <CheckCircle2 className="text-emerald-400" size={22} />
+                            : <Circle className={`text-stone-200 dark:text-stone-600 group-hover:${style.text}`} size={22} />
                         }
                         </div>
                     ))}

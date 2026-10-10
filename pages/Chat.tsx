@@ -43,7 +43,7 @@ export const Chat: React.FC<ChatProps> = ({ match, myGroupName, onBack }) => {
     };
     setMessages([...messages, newMsg]);
     setInputText('');
-    
+
     setTimeout(() => {
         const reply: ChatMessage = {
             id: (Date.now() + 1).toString(),
@@ -63,23 +63,23 @@ export const Chat: React.FC<ChatProps> = ({ match, myGroupName, onBack }) => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-[#FDFBF7] max-w-md mx-auto relative">
+    <div className="flex flex-col h-[calc(100vh-3.5rem)] bg-[#FDFBF7] dark:bg-stone-900 max-w-md mx-auto relative">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-lg border-b border-stone-100 p-4 pt-4 flex items-center justify-between sticky top-0 z-20">
+      <div className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-lg border-b border-stone-100 dark:border-stone-800 p-4 pt-4 flex items-center justify-between sticky top-0 z-20">
         <div className="flex items-center gap-3">
-          <button onClick={onBack} className="text-stone-400 hover:text-stone-700 transition-colors p-1 rounded-full hover:bg-stone-50">
+          <button onClick={onBack} className="text-stone-400 hover:text-stone-700 dark:hover:text-stone-100 transition-colors p-1 rounded-full hover:bg-stone-50 dark:hover:bg-stone-800">
             <ArrowLeft size={22} />
           </button>
           <div className="relative">
-            <img src={match.group.imageUrl} className="w-10 h-10 rounded-full object-cover ring-2 ring-stone-50" alt="" />
-            <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white bg-emerald-400" />
+            <img src={match.group.imageUrl} className="w-10 h-10 rounded-full object-cover ring-2 ring-stone-50 dark:ring-stone-800" alt="" />
+            <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white dark:ring-stone-900 bg-emerald-400" />
           </div>
           <div>
-              <h3 className="font-bold text-stone-700 text-sm">{match.group.name}</h3>
-              <p className="text-xs text-rose-400 font-medium">Asado pendiente</p>
+              <h3 className="font-bold text-stone-700 dark:text-stone-100 text-sm">{match.group.name}</h3>
+              <p className="text-xs text-rose-400 dark:text-rose-300 font-medium">Asado pendiente</p>
           </div>
         </div>
-        <button className="text-stone-300 p-2 hover:text-stone-500">
+        <button className="text-stone-300 dark:text-stone-500 p-2 hover:text-stone-500 dark:hover:text-stone-300">
             <MoreVertical size={20} />
         </button>
       </div>
@@ -90,8 +90,8 @@ export const Chat: React.FC<ChatProps> = ({ match, myGroupName, onBack }) => {
             if (msg.isSystem) {
                 return (
                     <div key={msg.id} className="flex flex-col items-center justify-center my-6">
-                        <span className="text-[10px] uppercase tracking-wider text-stone-300 font-bold mb-1">Nuevo Match</span>
-                        <div className="bg-stone-100 h-px w-32 mb-2"></div>
+                        <span className="text-[10px] uppercase tracking-wider text-stone-300 dark:text-stone-500 font-bold mb-1">Nuevo Match</span>
+                        <div className="bg-stone-100 dark:bg-stone-700 h-px w-32 mb-2"></div>
                         <p className="text-xs text-stone-400">{msg.text}</p>
                     </div>
                 );
@@ -100,9 +100,9 @@ export const Chat: React.FC<ChatProps> = ({ match, myGroupName, onBack }) => {
             return (
                 <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
                     <div className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm shadow-sm ${
-                      isMe 
-                      ? 'bg-rose-100 text-stone-800 border border-rose-200/50 rounded-br-sm' 
-                      : 'bg-white text-stone-600 border border-stone-100 rounded-bl-sm'
+                      isMe
+                      ? 'bg-rose-100 dark:bg-rose-900/40 text-stone-800 dark:text-stone-100 border border-rose-200/50 dark:border-rose-800/50 rounded-br-sm'
+                      : 'bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-200 border border-stone-100 dark:border-stone-700 rounded-bl-sm'
                     }`}>
                         {msg.text}
                     </div>
@@ -113,27 +113,27 @@ export const Chat: React.FC<ChatProps> = ({ match, myGroupName, onBack }) => {
       </div>
 
       {/* Input Area */}
-      <div className="p-4 bg-white border-t border-stone-100 pb-safe">
+      <div className="p-4 bg-white dark:bg-stone-900 border-t border-stone-100 dark:border-stone-800 pb-safe">
         <div className="flex items-center justify-between mb-3">
-            <button 
+            <button
                 onClick={handleIcebreaker}
                 disabled={generatingIcebreaker}
-                className="text-xs bg-white border border-violet-100 text-violet-500 px-3 py-1.5 rounded-full flex items-center gap-1.5 hover:bg-violet-50 hover:border-violet-200 transition-all font-medium shadow-sm hover:-translate-y-0.5"
+                className="text-xs bg-white dark:bg-stone-800 border border-violet-100 dark:border-violet-800/60 text-violet-500 dark:text-violet-300 px-3 py-1.5 rounded-full flex items-center gap-1.5 hover:bg-violet-50 dark:hover:bg-violet-900/30 hover:border-violet-200 dark:hover:border-violet-700 transition-all font-medium shadow-sm hover:-translate-y-0.5"
             >
                 <Sparkles size={14} className={generatingIcebreaker ? 'animate-pulse' : ''} />
                 {generatingIcebreaker ? 'Pensando...' : 'Pedir ayuda a IA'}
             </button>
         </div>
         <div className="flex items-center gap-2">
-            <input 
-                type="text" 
+            <input
+                type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder="Escribe un mensaje..."
-                className="flex-1 bg-stone-50 text-stone-800 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-rose-100 focus:bg-white transition-all placeholder-stone-400 shadow-inner"
+                className="flex-1 bg-stone-50 dark:bg-stone-800 text-stone-800 dark:text-stone-100 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-rose-100 dark:focus:ring-rose-900/50 focus:bg-white dark:focus:bg-stone-700 transition-all placeholder-stone-400 shadow-inner"
             />
-            <button 
+            <button
                 onClick={handleSend}
                 disabled={!inputText.trim()}
                 className="bg-gradient-to-r from-rose-300 to-amber-200 text-white p-3 rounded-full hover:shadow-lg hover:shadow-rose-200/50 transition-all disabled:opacity-50 disabled:shadow-none hover:-translate-y-0.5 hover:scale-105"
